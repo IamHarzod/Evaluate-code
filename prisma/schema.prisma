@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum SubmissionStatus {
+  PENDING
+  PROCESSING
+  DONE
+  FAILED
+}
+
+enum SecurityStatus {
+  SAFE
+  WARNING
+  ERROR
+}
+
+model Submission {
+  id             String           @id @default(uuid())
+  code           String
+  language       String
+  status         SubmissionStatus @default(PENDING)
+  score          Int?
+  passed         Int?
+  total          Int?
+  details        Json?            // e.g., [{ "testCase": 1, "passed": true, "timeMs": 42 }]
+  securityStatus SecurityStatus   @default(SAFE)
+  findings       Json?            // e.g., [{ "severity": "HIGH", "message": "...", "line": 12, "cwe": "CWE-95" }]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@map("submissions")
+}

@@ -1,0 +1,20 @@
+{
+  "name": "code-evaluator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Code evaluation and vulnerability scanner system",
+  "scripts": {
+    "dev": "pnpm --parallel dev",
+    "build": "pnpm -r build",
+    "start:api": "pnpm --filter api start:dev",
+    "start:worker": "pnpm --filter worker start:dev",
+    "start:web": "pnpm --filter web dev"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.3",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3"
+  }
+}
